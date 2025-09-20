@@ -47,13 +47,13 @@ export function CampaignComboBox() {
   const [value, setValue] = React.useState("")
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} className>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full justify-between "
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
@@ -61,7 +61,7 @@ export function CampaignComboBox() {
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="p-0 ">
         <Command>
           <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
