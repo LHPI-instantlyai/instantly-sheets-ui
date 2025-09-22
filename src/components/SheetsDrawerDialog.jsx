@@ -32,6 +32,7 @@ import { X } from "lucide-react";
 import { AddNewSheet, messageClear } from "@/store/reducers/sheetReducer";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { ColumnKanban } from './custom/ColumnKanban';
 
 export function SheetsDrawerDialog({ open, setOpen }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -148,6 +149,7 @@ function ProfileForm({ className }) {
   };
 
 
+
      const {loader, successMessage } = useSelector((state) => state.sheet);
 
      useEffect(()=>{
@@ -211,6 +213,10 @@ function ProfileForm({ className }) {
           ))}
         </div>
       </div>
+{/* 
+      <div className="w-full h-screen flex justify-center items-center bg-red-800">
+        <ColumnKanban/>
+      </div> */}
 
       {/* Submit */}
       <Button disabled={loader} type="submit">

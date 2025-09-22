@@ -6,17 +6,14 @@ import { InstantlyFilterForm } from "../components/InstantlyFilterForm";
 import { getExistingSheets, messageClear } from "@/store/reducers/sheetReducer";
 import toast from "react-hot-toast";
 import { getExistingCampaigns } from "@/store/reducers/instantlyAiReducer";
-
-
+import { ColumnKanban } from "./../components/custom/ColumnKanban";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { existingSheets, successMessage, errorMessage } = useSelector(
     (state) => state.sheet
   );
-  const { existingCampaigns } = useSelector(
-    (state) => state.instantlyAi
-  );
+  const { existingCampaigns } = useSelector((state) => state.instantlyAi);
 
   useEffect(() => {
     if (successMessage) {
@@ -27,7 +24,7 @@ const Home = () => {
       dispatch(messageClear());
     }
   }, [successMessage, errorMessage, dispatch]);
-  
+
   useEffect(() => {
     dispatch(getExistingSheets(import.meta.env.VITE_SHEET_ID));
     dispatch(getExistingCampaigns());
@@ -41,8 +38,12 @@ const Home = () => {
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
-        <div className="w-full text-center">
-          <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/>
+        <div className="w-full flex h-screen items-center justify-center text-center relative overflow-y-scroll">
+          <div className="absolute top-15">
+            <ColumnKanban />
+          </div>
+
+          {/* <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/> */}
         </div>
       </div>
     </div>
