@@ -11,6 +11,8 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
+import { FaClock } from "react-icons/fa";
+import { FcDataSheet } from "react-icons/fc";
 
 export function NavBar() {
   const navItems = [
@@ -36,10 +38,10 @@ export function NavBar() {
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} />
+          {/* <NavItems items={navItems} /> */}
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="secondary" className={"flex justify-center items-center gap-1.5"}>InstaSheet <FcDataSheet size={25} /></NavbarButton>
+            <NavbarButton variant="primary " className={"flex justify-center items-center gap-1.5"}>Schedule <FaClock size={20}/></NavbarButton>
           </div>
         </NavBody>
 

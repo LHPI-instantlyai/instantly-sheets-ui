@@ -1,9 +1,9 @@
-import authReducer from "./reducers/authReducer";
+import instantlyAiReducer  from "./reducers/instantlyAiReducer";
 import sheetReducer  from "./reducers/sheetReducer";
 
 
 const rootReducers = {
   sheet: sheetReducer,
-//   auth : authReducer
+  instantlyAi : instantlyAiReducer
 };
 export default rootReducers;

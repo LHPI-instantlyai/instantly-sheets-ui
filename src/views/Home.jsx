@@ -5,11 +5,17 @@ import { LoginForm } from "./../components/login-form";
 import { InstantlyFilterForm } from "../components/InstantlyFilterForm";
 import { getExistingSheets, messageClear } from "@/store/reducers/sheetReducer";
 import toast from "react-hot-toast";
+import { getExistingCampaigns } from "@/store/reducers/instantlyAiReducer";
+
+
 
 const Home = () => {
   const dispatch = useDispatch();
   const { existingSheets, successMessage, errorMessage } = useSelector(
     (state) => state.sheet
+  );
+  const { existingCampaigns } = useSelector(
+    (state) => state.instantlyAi
   );
 
   useEffect(() => {
@@ -21,10 +27,10 @@ const Home = () => {
       dispatch(messageClear());
     }
   }, [successMessage, errorMessage, dispatch]);
-
-  console.log(existingSheets);
+  
   useEffect(() => {
     dispatch(getExistingSheets(import.meta.env.VITE_SHEET_ID));
+    dispatch(getExistingCampaigns());
   }, []);
 
   return (
@@ -36,7 +42,7 @@ const Home = () => {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
         <div className="w-full text-center">
-          <InstantlyFilterForm existingSheets={existingSheets} />
+          <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/>
         </div>
       </div>
     </div>

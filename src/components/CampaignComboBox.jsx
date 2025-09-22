@@ -19,35 +19,24 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
-
-export function CampaignComboBox() {
+export function CampaignComboBox({ existingCampaigns, onSelectCampaign, selectedId, setSelectedId }) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  // Find the selected campaign object by its id
+  const selectedCampaign = existingCampaigns.find(
+    (c) => c.id === selectedId
+  )
+
+  const handleSelect = (id) => {
+    const newId = id === selectedId ? "" : id
+    setSelectedId(newId)
+    setOpen(false)
+    if (onSelectCampaign) {
+      onSelectCampaign(newId) // pass back the selected id only
+    }
+  }
 
   return (
-    <Popover open={open} onOpenChange={setOpen} className>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -55,32 +44,27 @@ export function CampaignComboBox() {
           aria-expanded={open}
           className="w-full justify-between "
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+          {selectedCampaign?.name || "Select campaign..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 ">
+      <PopoverContent side="bottom" align="start" sideOffset={4} className=" w-fit p-1">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search campaign..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No campaign found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {existingCampaigns.map((campaign) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
+                  key={campaign.id}
+                  value={campaign.id}
+                  onSelect={handleSelect}
                 >
-                  {framework.label}
+                  {campaign.name}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      selectedId === campaign.id ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

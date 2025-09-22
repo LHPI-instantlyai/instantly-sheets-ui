@@ -19,9 +19,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function SheetsComboBox({ existingSheets }) {
+export function SheetsComboBox({ existingSheets,selectedSheet, setSelectedSheet }) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -32,7 +32,7 @@ export function SheetsComboBox({ existingSheets }) {
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value || "Select sheet..."}
+          {selectedSheet || "Select sheet..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -47,7 +47,7 @@ export function SheetsComboBox({ existingSheets }) {
                   key={sheet}
                   value={sheet}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setSelectedSheet(currentValue === selectedSheet ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
@@ -55,7 +55,7 @@ export function SheetsComboBox({ existingSheets }) {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === sheet ? "opacity-100" : "opacity-0"
+                      selectedSheet === sheet ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
