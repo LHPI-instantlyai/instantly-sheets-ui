@@ -122,27 +122,31 @@ const Column = ({
   };
 
   return (
-    <div className="w-[400px] shrink-0">
+    <div className="w-[400px] shrink-0 ">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex text-center justify-center items-center gap-1">
-          <h3 className={`font-medium ${headingColor}`}>{title}</h3>{" "}
-          <span className="rounded text-sm text-neutral-400">
-            {filteredCards.length}
-          </span>
+          <div className="relative">
+            <h3 className={`font-medium ${headingColor}`}>{title}</h3>{" "}
+            <span className="absolute -top-4 -right-8 w-7 h-7 text-center flex justify-center items-center text-sm text-white bg-gray-600 rounded-full font-bold">
+              {filteredCards.length}
+            </span>
+          </div>
         </div>
         {title === "Google Sheet Columns" && (
           <div className="flex flex-row gap-2">
-            <button onClick={()=>setCards([])} className="bg-[#262626] px-3 py-1 rounded-sm flex justify-center items-center gap-1">
-              Reset 
+            <button
+              onClick={() => setCards([])}
+              className="bg-[#262626] px-3 py-1 rounded-sm flex justify-center items-center gap-1"
+            >
+              Reset
             </button>
-            <button onClick={()=>setCards(DEFAULT_CARDS)} className="bg-[#262626] px-3 py-1 rounded-sm flex justify-center items-center gap-1">
+            <button
+              onClick={() => setCards(DEFAULT_CARDS)}
+              className="bg-[#262626] px-3 py-1 rounded-sm flex justify-center items-center gap-1"
+            >
               {" "}
               Default
             </button>
-            {/* <div className="bg-[#262626] px-3 py-1 rounded-sm flex justify-center items-center gap-1">
-              {" "}
-              Reset <RiResetLeftFill />
-            </div> */}
           </div>
         )}
       </div>
@@ -180,7 +184,6 @@ const Column = ({
               className="rounded bg-neutral-100 p-3 gap-1 text-neutral-900 hover:bg-neutral-300 flex justify-center items-center font-bold text-sm"
             >
               ADD
-              {/* <FaList size={16} /> */}
               <FiPlus size={17} />
             </button>
           </form>
@@ -236,7 +239,7 @@ const Card = ({
         </button>
 
         {column === "json" && (
-          <div className="absolute left-2 right-0 w-6/12 text-end flex justify-end pointer-events-none transition-all duration-300">
+          <div className="absolute left-2 right-0 w-6/12 text-end flex justify-end pointer-events-none transition-all duration-300 md:block hidden">
             <div className="pointer-events-auto">
               <FaChevronRight />
             </div>

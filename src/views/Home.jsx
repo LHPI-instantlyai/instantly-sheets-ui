@@ -39,11 +39,11 @@ const Home = () => {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
         <div className="w-full flex h-screen items-center justify-center text-center relative overflow-y-scroll">
-          <div className="absolute top-15">
+          {/* <div className="absolute top-15">
             <ColumnKanban />
-          </div>
+          </div> */}
 
-          {/* <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/> */}
+          <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/>
         </div>
       </div>
     </div>
