@@ -13,7 +13,9 @@ const Home = () => {
   const { existingSheets, successMessage, errorMessage } = useSelector(
     (state) => state.sheet
   );
-  const { existingCampaigns } = useSelector((state) => state.instantlyAi);
+  const { existingCampaigns, instantlyloader } = useSelector(
+    (state) => state.instantlyAi
+  );
 
   useEffect(() => {
     if (successMessage) {
@@ -31,20 +33,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative h-screen">
-      <div className="absolute inset-0">
+    <div className="relative h-full p-0 flex justify-center items-center">
+      <div className="absolute inset-0 z-10">
         <NavBar />
-        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-      </div>
-
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
-        <div className="w-full flex h-screen items-center justify-center text-center relative overflow-y-scroll">
-          {/* <div className="absolute top-15">
-            <ColumnKanban />
-          </div> */}
-
-          <InstantlyFilterForm existingSheets={existingSheets} existingCampaigns={existingCampaigns}/>
-        </div>
+      </div>  
+      <div className="flex pt-35 pb-10 px-10 z-40">
+        <InstantlyFilterForm
+            existingSheets={existingSheets}
+            existingCampaigns={existingCampaigns}
+            instantlyloader={Boolean(instantlyloader)}
+          />
       </div>
     </div>
   );

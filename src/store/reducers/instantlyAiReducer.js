@@ -13,19 +13,15 @@ export const getExistingCampaigns = createAsyncThunk(
   }
 );
 
-export const AddNewSheet = createAsyncThunk(
-  "auth/AddNewSheet",
-  async (
-    { sheetID, columns, sheetName },
-    { fulfillWithValue, rejectWithValue }
-  ) => {
+export const startAgentEncoding = createAsyncThunk(
+  "auth/startAgentEncoding",
+  async ({ campaignId, opts, sheetName }, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const { data } = await api.post(`/sheets/${sheetID}/addSheet`, {
+      const { data } = await api.post(`/agent/start-agent-encoding`, {
+        campaignId,
+        opts,
         sheetName,
-        columns,
       });
-      console.log("data -------------------------------------------");
-      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -33,10 +29,13 @@ export const AddNewSheet = createAsyncThunk(
   }
 );
 
+
+
+
 export const instantlyAiReducer = createSlice({
   name: "instantlyAi",
   initialState: {
-    loader: false,
+    instantlyloader: false,
     errorMessage: "",
     successMessage: "",
     existingCampaigns: [],
@@ -51,33 +50,17 @@ export const instantlyAiReducer = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getExistingCampaigns.pending, (state, _) => {
-      state.loader = true;
+      state.instantlyloader = true;
     });
     builder.addCase(getExistingCampaigns.rejected, (state, payload) => {
-      state.loader = false;
+      state.instantlyloader = false;
       state.errorMessage = payload.payload.error;
     });
     builder.addCase(getExistingCampaigns.fulfilled, (state, payload) => {
-      state.loader = false;
+      state.instantlyloader = false;
       state.successMessage = payload.payload.message;
       state.existingCampaigns = payload.payload.campaigns;
       state.totalExistingCampaigns = payload.payload.total;
-    });
-
-    //   AddNewSheet
-    builder.addCase(AddNewSheet.pending, (state, _) => {
-      state.loader = true;
-    });
-    builder.addCase(AddNewSheet.rejected, (state, payload) => {
-      state.loader = false;
-      console.log(payload.payload.error)
-      console.log("payload.payload.error-------------------")
-      state.errorMessage = payload.payload.error;
-    });
-    builder.addCase(AddNewSheet.fulfilled, (state, payload) => {
-      state.loader = false;
-      state.successMessage = payload.payload.message;
-      state.existingSheets.push(payload.payload.sheetName);
     });
   },
 });
